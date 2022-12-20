@@ -38,9 +38,16 @@ add_down(N ,X, K) - N  10, X is K  N, !.
 add_down(N, X, K) - N = 10, N1 is N mod 10, N2 is N div 10, K1 is K  N1, add_down(N2, X, K1).
 
 %11
-kol_three_up(N, X):- N==0, X is 0; X1 is N mod 10, N1 is N div 10, X3 is X1 mod 3, X3 > 0, kol_three_up(N1, X2), X1>X2, X is X1, !;
-    X1 is N mod 10, N1 is N div 10, X3 is X1 mod 3, X3 > 0, kol_three_up(N1, X2), X1=<X2, X is X2, !;
-    X1 is N mod 10, N1 is N div 10, X3 is X1 mod 3, X3 == 0, kol_three_up(N1, X2), X is X2, !.
+max_digit(X,X)-
+   X10, !.
+
+max_digit(X,N)-
+   X1 is X div 10,
+   X2 is X mod 10,
+   max_digit(X1,N1),
+   (   X2N1
+   -  N =  N1
+   ;   N = X2).
 
 %12
 nod(A, B, GCD) -
