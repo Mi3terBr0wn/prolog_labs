@@ -58,9 +58,9 @@ max_digit_3_down(X,N,N1) :- X>=10,
     X1 is X div 10,
    	X2 is X mod 10,
     (  ( X2>N1, X2 mod 3>0)
-    -> N1 is X2, write(4), nl  %ломается после ->
-    ;   N1 is N1, write(5), nl), write(6), nl, 
-    max_digit_3_down(X1, N, N1).
+    -> N2 = X2 %ломается после ->
+    ;   N2 = N1),
+    max_digit_3_down(X1, N, N2).
     
 
 %12
@@ -87,6 +87,16 @@ koldel(X,L,K):-X mod L=0 -> L1 is L-1, koldel(X,L1,K1), K=K1+1; X mod L>0->L1 is
 kol(X,Y):-koldel(X,X-1,Y).
 
 %13
+
+sum_dig_m_5(X,S):-sum_dig_m_5(X,S,0).
+sum_dig_m_5(X,S,K):-X<10, (   X<5 ->   S is K+X; S is K),!.
+sum_dig_m_5(X,S,K):-X>=10,X1 is X mod 10,X2 is X div 10,( X1<5 -> K1 is K+X1; K1 is K), sum_dig_m_5(X2,S,K1).
+
+min_del(X, N):-min_del(X, N, 1).
+min_del(X, N, K):-K+1 >= X, N is K.
+min_del(X, N, K):-K<=X, X mod K is 0 -> N is K, !; K1 is K+1, min_del(X, N,K1).
+
+
 sumProstU(X,K):-X<10,(isPr(X)-> K is X; K is 0), !.
 sumProstU(X,K):-X>=10,X1 is X mod 10, X11 is X div 10,sumProstU(X11,K1),(isPr(X1)-> K is K1+X1; K is K1), write(K), nl.
 
